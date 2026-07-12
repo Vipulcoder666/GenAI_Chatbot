@@ -9,6 +9,10 @@ from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
+# Streamlit Cloud Secrets ko environment variable mein daalo
+if "GROQ_API_KEY" in st.secrets:
+    os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+
 st.set_page_config(page_title="Vipul's Chatbot", page_icon="🤖")
 st.title("🤖 Upload your PDF..")
 
@@ -53,7 +57,7 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 # User input lo (chat box)
-user_query = st.chat_input("RIght your question here...")
+user_query = st.chat_input("Right your question here...")
 
 if user_query:
     # User ka message history mein add karo aur dikhao
